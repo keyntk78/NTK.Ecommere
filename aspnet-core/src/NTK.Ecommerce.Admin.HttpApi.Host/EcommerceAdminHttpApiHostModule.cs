@@ -78,7 +78,7 @@ public class EcommerceAdminHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<EcommerceDomainModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
                         $"..{Path.DirectorySeparatorChar}NTK.Ecommerce.Domain"));
-                options.FileSets.ReplaceEmbeddedByPhysical<EcommerceApplicationContractsModule>(
+                options.FileSets.ReplaceEmbeddedByPhysical<EcommerceAdminApplicationContractsModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
                         $"..{Path.DirectorySeparatorChar}NTK.Ecommerce.Admin.Application.Contracts"));
                 options.FileSets.ReplaceEmbeddedByPhysical<EcommerceAdminApplicationModule>(
