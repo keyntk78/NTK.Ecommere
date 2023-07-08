@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NTK.Ecommerce.Data;
+using NTK.Ecommerce.Seeding;
 using Serilog;
 using Volo.Abp;
 using Volo.Abp.Data;
@@ -37,6 +38,11 @@ public class DbMigratorHostedService : IHostedService
                 .ServiceProvider
                 .GetRequiredService<EcommerceDbMigrationService>()
                 .MigrateAsync();
+
+            await application
+            .ServiceProvider
+            .GetRequiredService<IdentityDataSeeder>()
+            .SeedAsync("admin@ntk.com.vn", "Admin@123");
 
             await application.ShutdownAsync();
 
