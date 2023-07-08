@@ -1,4 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NTK.Ecommerce.ProductAttributes;
+using NTK.Ecommerce.Inventories;
+using NTK.Ecommerce.InventoryTickets;
+using NTK.Ecommerce.Manufacturers;
+using NTK.Ecommerce.Orders;
+using NTK.Ecommerce.ProductCategories;
+using NTK.Ecommerce.Products;
+using NTK.Ecommerce.Promotions;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -12,6 +20,14 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using NTK.Ecommerce.Configurations.ProductAttributes;
+using NTK.Ecommerce.Configurations.Inventories;
+using NTK.Ecommerce.Configurations.InventoryTickets;
+using NTK.Ecommerce.Configurations.Manufacturers;
+using NTK.Ecommerce.Configurations.Orders;
+using NTK.Ecommerce.Configurations.ProductCategories;
+using NTK.Ecommerce.Configurations.Products;
+using NTK.Ecommerce.Configurations.Promotions;
 
 namespace NTK.Ecommerce.EntityFrameworkCore;
 
@@ -51,6 +67,32 @@ public class EcommerceDbContext :
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
+    // Ecommerce
+    public DbSet<ProductAttribute> Attributes { get; set; }
+    public DbSet<Inventory> Inventories { get; set; }
+    public DbSet<InventoryTicket> InventoryTickets { get; set; }
+    public DbSet<InventoryTicketItem> InventoryTicketItems { get; set; }
+    public DbSet<Manufacturer> Manufacturers { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<OrderTransaction> OrderTransactions { get; set; }
+    public DbSet<ProductCategory> ProductCategories { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductAttributeDateTime> ProductAttributeDateTimes { get; set; }
+    public DbSet<ProductAttributeDecimal> ProductAttributeDecimals { get; set; }
+    public DbSet<ProductAttributeInt> ProductAttributeInts { get; set; }
+    public DbSet<ProductAttributeText> ProductAttributeTexts { get; set; }
+    public DbSet<ProductAttributeVarchar> ProductAttributeVarchars { get; set; }
+    public DbSet<ProductLink> ProductLinks { get; set; }
+    public DbSet<ProductReview> ProductReviews { get; set; }
+    public DbSet<ProductTag> ProductTags { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<Promotion> Promotions { get; set; }
+    public DbSet<PromotionCategory> PromotionCategories { get; set; }
+    public DbSet<PromotionManufacturer> PromotionManufacturers { get; set; }
+    public DbSet<PromotionProduct> PromotionProducts { get; set; }
+    public DbSet<PromotionUsageHistory> PromotionUsageHistories { get; set; }
+
     #endregion
 
     public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options)
@@ -75,12 +117,38 @@ public class EcommerceDbContext :
         builder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
+        builder.ApplyConfiguration(new InventoryConfiguration());
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(EcommerceConsts.DbTablePrefix + "YourEntities", EcommerceConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.ApplyConfiguration(new InventoryTicketConfiguration());
+        builder.ApplyConfiguration(new InventoryTicketItemConfiguration());
+
+        builder.ApplyConfiguration(new ManufacturerConfiguration());
+
+        builder.ApplyConfiguration(new OrderConfiguration());
+        builder.ApplyConfiguration(new OrderItemConfiguration());
+        builder.ApplyConfiguration(new OrderTransactionConfiguration());
+
+        builder.ApplyConfiguration(new ProductAttributeConfiguration());
+
+        builder.ApplyConfiguration(new ProductCategoryConfiguration());
+
+        builder.ApplyConfiguration(new ProductConfiguration());
+        builder.ApplyConfiguration(new ProductLinkConfiguration());
+        builder.ApplyConfiguration(new ProductReviewConfiguration());
+        builder.ApplyConfiguration(new ProductTagConfiguration());
+        builder.ApplyConfiguration(new TagConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeDateTimeConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeDecimalConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeIntConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeTextConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeVarcharConfiguration());
+
+        builder.ApplyConfiguration(new PromotionConfiguration());
+        builder.ApplyConfiguration(new PromotionCategoryConfiguration());
+        builder.ApplyConfiguration(new PromotionManufacturerConfiguration());
+        builder.ApplyConfiguration(new PromotionProductConfiguration());
+        builder.ApplyConfiguration(new PromotionUsageHistoryConfiguration());
+
+
     }
 }

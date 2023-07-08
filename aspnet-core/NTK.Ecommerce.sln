@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTK.Ecommerce.HttpApi.Clien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTK.Ecommerce.DbMigrator", "src\NTK.Ecommerce.DbMigrator\NTK.Ecommerce.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{71B272C4-8374-4AD7-96C1-59E5F5BD3F7C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "auth", "auth", "{71B272C4-8374-4AD7-96C1-59E5F5BD3F7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{646A2A7E-792D-4ABC-BF97-A8968D770C1D}"
 EndProject
