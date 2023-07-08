@@ -56,7 +56,7 @@ public class EcommerceAuthServerModule : AbpModule
         {
             builder.AddValidation(options =>
             {
-                options.AddAudiences("Ecommerce");
+                options.AddAudiences("NTKEcommerce", "NTKEcommerce.Admin");
                 options.UseLocalServer();
                 options.UseAspNetCore();
             });
@@ -119,14 +119,14 @@ public class EcommerceAuthServerModule : AbpModule
 
         Configure<AbpDistributedCacheOptions>(options =>
         {
-            options.KeyPrefix = "Ecommerce:";
+            options.KeyPrefix = "NTKEcommerce:";
         });
 
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Ecommerce");
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("NTKEcommerce");
         if (!hostingEnvironment.IsDevelopment())
         {
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Ecommerce-Protection-Keys");
+            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "NTKEcommerce-Protection-Keys");
         }
 
         context.Services.AddSingleton<IDistributedLockProvider>(sp =>
