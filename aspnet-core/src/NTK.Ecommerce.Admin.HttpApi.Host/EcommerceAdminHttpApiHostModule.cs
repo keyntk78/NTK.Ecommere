@@ -61,7 +61,7 @@ public class EcommerceAdminHttpApiHostModule : AbpModule
 
     private void ConfigureCache(IConfiguration configuration)
     {
-        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Ecommerce:"; });
+        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "NTKEcommerce:"; });
     }
 
     private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
@@ -103,7 +103,7 @@ public class EcommerceAdminHttpApiHostModule : AbpModule
             {
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
-                options.Audience = "Ecommerce.Admin";
+                options.Audience = "NTKEcommerce.Admin";
             });
     }
 
@@ -113,11 +113,11 @@ public class EcommerceAdminHttpApiHostModule : AbpModule
             configuration["AuthServer:Authority"],
             new Dictionary<string, string>
             {
-                    {"Ecommerce", "Ecommerce Admin API"}
+                    {"NTKEcommerce", "NTKEcommerce Admin API"}
             },
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Ecommerce Admin API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "NTKEcommerce Admin API", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
@@ -128,11 +128,11 @@ public class EcommerceAdminHttpApiHostModule : AbpModule
         IConfiguration configuration,
         IWebHostEnvironment hostingEnvironment)
     {
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Ecommerce");
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("NTKEcommerce");
         if (!hostingEnvironment.IsDevelopment())
         {
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Ecommerce-Protection-Keys");
+            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "NTKEcommerce-Protection-Keys");
         }
     }
 
@@ -195,11 +195,11 @@ public class EcommerceAdminHttpApiHostModule : AbpModule
         app.UseSwagger();
         app.UseAbpSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ecommerce Admin API");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "NTKEcommerce Admin API");
 
             var configuration = context.GetConfiguration();
             options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
-            options.OAuthScopes("Ecommerce");
+            options.OAuthScopes("NTKEcommerce.Admin");
         });
 
         app.UseAuditing();
